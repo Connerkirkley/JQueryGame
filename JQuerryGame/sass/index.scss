@@ -10,18 +10,17 @@ $shine-color: #ffffff;
 
 @font-face {
     font-family: 'joyza';
-    src: url(./fonts/jdot.ttf);
+    src: url(../fonts/jdot.ttf);
 }
 .flex-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Set height to full viewport height */
     background-color: rgb(52, 52, 52);
-    width: 100vw; /* Set width to 100% of viewport width */
-    height: 100vh; /* Set height to 100% of viewport height */
-    margin: 0; /* Remove any default margin */
-    padding: 0; /* Remove any default padding */
     flex-direction: column;
+    width: 100%; /* Occupy full width of the viewport */
+    font-family: 'joyza';
 }
 
 
@@ -39,16 +38,16 @@ $shine-color: #ffffff;
     background-color: rgb(4, 132, 192);
 }
 
-.grid {
-    background-color: #005a30;
-    flex-grow: 1; /* This makes the grid expand to fill the available space */
-    width: 100%; /* Ensure the grid fills the entire width */
-    height: 100%; /* Ensure the grid fills the entire height */
-    margin: 0; /* Remove any default margin */
+#top-screen {
+    display: flex;
+    transform: scale(2);
+    position: relative; /* Ensure z-index works */
+    z-index: 2; /* Set z-index higher than the grid */
 }
 
-
-#top-screen{
-    display: flex;
-    font-family: 'joyza';
+.grid {
+    background-color: #005a30;
+    transform: scale(2);
+    position: relative; /* Ensure z-index works */
+    z-index: 1; /* Set z-index lower than the top-screen */
 }
