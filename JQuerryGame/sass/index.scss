@@ -8,15 +8,22 @@ $shine-color: #ffffff;
               0 0 20px 5px $shine-color;
 }
 
+@font-face {
+    font-family: 'joyza';
+    src: url(./fonts/jdot.ttf);
+}
 .flex-container {
     display: flex;
-    height: 100vh;
     justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    scale: 200%;
+    align-items: center;
     background-color: rgb(52, 52, 52);
+    width: 100vw; /* Set width to 100% of viewport width */
+    height: 100vh; /* Set height to 100% of viewport height */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    flex-direction: column;
 }
+
 
 #player {
     background-color: rgb(255, 179, 0);
@@ -34,4 +41,14 @@ $shine-color: #ffffff;
 
 .grid {
     background-color: #005a30;
+    flex-grow: 1; /* This makes the grid expand to fill the available space */
+    width: 100%; /* Ensure the grid fills the entire width */
+    height: 100%; /* Ensure the grid fills the entire height */
+    margin: 0; /* Remove any default margin */
+}
+
+
+#top-screen{
+    display: flex;
+    font-family: 'joyza';
 }
