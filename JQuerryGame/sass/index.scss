@@ -1,26 +1,37 @@
+$metallic-color: #838383;
+$shine-color: #ffffff;
 
+// Define a mixin for metallic background
+@mixin metallic-background {
+  background: linear-gradient(45deg, darken($metallic-color, 10%), lighten($metallic-color, 10%));
+  box-shadow: inset 0 0 10px 5px darken($metallic-color, 20%),
+              0 0 20px 5px $shine-color;
+}
 
-
-#top-screen {
-    align-content: center;
-    }
-
-.flex-container{
+.flex-container {
     display: flex;
     height: 100vh;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
+    scale: 200%;
+    background-color: rgb(52, 52, 52);
 }
 
-#player{
-    background-color: aquamarine;
+#player {
+    background-color: rgb(255, 179, 0);
     position: relative;
+    @include metallic-background; // Apply metallic background mixin
 }
-.wall{
+
+.wall {
     background-color: grey;
 }
 
-.winning{
-    background-color: green;
+.winning {
+    background-color: rgb(4, 132, 192);
+}
+
+.grid {
+    background-color: #005a30;
 }
