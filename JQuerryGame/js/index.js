@@ -3,11 +3,12 @@ $(document).ready(function() {
     let Game = true;
     let input = true;
     let timer = 0.0
-
+    let gameBoardIndex = 0
+    let gameBoard
     let playerPOS
     let winningPOS
 
-    let gameBoard = [
+    let gameStore = [[
 /*top left*/[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
             [1, 9, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1], // 1
             [1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1], // 2
@@ -55,10 +56,44 @@ $(document).ready(function() {
             [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 44
             [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 45
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 46
-/*topRight*/[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];// 47
+/*topRight*/[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], // 47
+            
 
 
-    let GameStart = function (gameBoard) {
+
+
+            [
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0],
+            ]];
+
+
+    let GameStart = function (GameBoard) {
+        gameBoard = GameBoard;
     let gridCol = gameBoard.length
     let gridRow = gameBoard[0].length
 
@@ -185,7 +220,7 @@ $(document).ready(function() {
         }}
 
     let game = async function() {
-        GameStart(gameBoard);
+        GameStart(gameStore[gameBoardIndex]);
         while (Game) {
             await sleep(100);
             if (checkWin() === true){
@@ -197,6 +232,8 @@ $(document).ready(function() {
             updateTimer(timer);
         }
         console.log('game over');
+        gameBoardIndex++;
+        game();
     };
 
 
@@ -206,6 +243,7 @@ $(document).ready(function() {
         timer = Math.round(timer);
         document.getElementById('top-screen').innerHTML = `Seconds ${timer}`
     }
+
 
 
     let killAllDivs = function() {
