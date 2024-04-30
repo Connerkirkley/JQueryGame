@@ -204,7 +204,7 @@ $(document).ready(function() {
     let updateTimer = function(timer) {
 
         timer = Math.round(timer);
-        document.getElementById('top-screen').innerHTML = `Seconds${timer}`
+        document.getElementById('top-screen').innerHTML = `Seconds ${timer}`
     }
 
 
