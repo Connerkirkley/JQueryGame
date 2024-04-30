@@ -2,7 +2,8 @@ $(document).ready(function() {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     let Game = true;
     let input = true;
-    
+    let timer = 0.0
+
     let playerPOS
     let winningPOS
 
@@ -64,7 +65,6 @@ $(document).ready(function() {
     $('body').append(`<div class="grid" style="display:grid;grid-template-columns:repeat(${gridCol}, 10px);grid-template-rows:repeat(${gridRow}, 10px)"></div>`)
 
 
-
     let x = 1;
     for (let i of gameBoard) {
         let y = 1;
@@ -106,25 +106,21 @@ $(document).ready(function() {
         switch (key) {
             case 'w':
             case 'W':
-            case 'ArrowUp':
                 movePlayer('up');
                 break;
 
             case 'a':
             case 'A':
-            case 'ArrowLeft':
                 movePlayer('left');
                 break;
 
             case 's':
             case 'S':
-            case 'ArrowDown':
                 movePlayer('down');
                 break;
 
             case 'd':
             case 'D':
-            case 'ArrowRight':
                 movePlayer('right');
                 break;
         }
@@ -197,9 +193,19 @@ $(document).ready(function() {
                 killAllDivs();
                 break;
             }
+            timer += .1
+            updateTimer(timer);
         }
         console.log('game over');
     };
+
+
+
+    let updateTimer = function(timer) {
+        timer = Math.round(timer);
+        document.getElementById('top-screen').innerHTML = timer
+    }
+
 
     let killAllDivs = function() {
         var divs = document.getElementsByTagName('div');
