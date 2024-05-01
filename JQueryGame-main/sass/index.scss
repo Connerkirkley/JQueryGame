@@ -1,0 +1,55 @@
+$metallic-color: #838383;
+$shine-color: #ffffff;
+
+// Define a mixin for metallic background
+@mixin metallic-background {
+  background: linear-gradient(45deg, darken($metallic-color, 10%), lighten($metallic-color, 10%));
+  box-shadow: inset 0 0 10px 5px darken($metallic-color, 20%),
+              0 0 20px 5px $shine-color;
+}
+
+@font-face {
+    font-family: 'joyza';
+    src: url(../fonts/jdot.ttf);
+}
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Set height to full viewport height */
+    background-color: rgb(52, 52, 52);
+    flex-direction: column;
+    width: 100%; /* Occupy full width of the viewport */
+    font-family: 'joyza';
+}
+
+
+#player {
+    background-color: rgb(255, 179, 0);
+    position: relative;
+    @include metallic-background; // Apply metallic background mixin
+}
+
+.wall {
+    background-color: grey;
+}
+
+.winning {
+    background-color: rgb(4, 132, 192);
+}
+
+#top-screen {
+    display: flex;
+    transform: scale(2);
+    align-self: center;
+    color: white;
+    transform: translateY(-180px);
+    font-size: xx-large;
+}
+
+.grid {
+    background-color: #005a30;
+    transform: scale(2);
+    position: relative; /* Ensure z-index works */
+    z-index: 1; /* Set z-index lower than the top-screen */
+}
