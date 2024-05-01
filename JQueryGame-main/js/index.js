@@ -1,18 +1,45 @@
 
 $(document).ready(function() {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-    let Game = true;
     let input = true;
     let timer = 1;
+    let lastTimer
     let gameBoardIndex = 0;
     let gameBoard;
     let playerPOS;
     let winningPOS;
 
     let gameStore = [
-        // Define your levels here
         [
-/*top left*/[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
+            [1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,9,0,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,1,0,1],
+            [1,0,1,1,1,1,1,1,0,1,0,1],
+            [1,0,1,0,0,0,0,1,0,1,0,1],
+            [1,0,1,0,1,1,0,1,0,1,0,1],
+            [1,0,1,0,1,2,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,0,0,1,0,1,0,1],
+            [1,0,1,0,1,1,1,1,0,1,0,1],
+            [1,0,1,0,0,0,0,0,0,1,0,1],
+            [1,0,1,1,1,1,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1]
+        ],
+        [
+            /*top left*/[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 0
             [1, 9, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1], // 1
             [1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1], // 2
             [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 3
@@ -60,34 +87,6 @@ $(document).ready(function() {
             [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 45
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 46
 /*topRight*/[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        ],
-        [
-            [1,1,1,1,1,1,1,1,1,1,1,1],
-            [1,9,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,2,1],
-            [1,1,1,1,1,1,1,1,1,1,1,1]
         ],[
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1],
@@ -146,13 +145,8 @@ $(document).ready(function() {
         gameBoard = GameBoard;
         let gridCol = gameBoard.length;
         let gridRow = gameBoard[1].length;
-
-        if (gridCol <= 40 || gridRow <= 60) {
-            $('.grid').css('transform:', 'scale(1)');
-            console.log('grid is over 40x60');
-        }
-
         $('body').append('<div id="top-screen"></div>')
+        
 
         $('body').append(`<div class="grid" style="display:grid;grid-template-columns:repeat(${gridCol}, 10px);grid-template-rows:repeat(${gridRow}, 10px)"></div>`);
 
@@ -266,28 +260,35 @@ $(document).ready(function() {
 
     let game = async function() {
         
-        while (Game) {
+        while (true) {
             GameStart(gameStore[gameBoardIndex]);
             while (true) {
                 await sleep(100);
                 if (checkWin()) {
-                    console.log('you win');
                     killAllDivs();
                     break;
                 }
                 timer += 0.1;
                 updateTimer(timer);
             }
-            console.log('game over');
             if (gameBoardIndex == 3){
                 gameBoardIndex = 0
+                console.log('game completed');
+                lastTimer = Math.round(10000 - (timer * 10))
+                timer = 0
             }
         }
     };
 
     let updateTimer = function(timer) {
         timer = Math.round(timer);
-        document.getElementById('top-screen').innerHTML = timer;
+        if (lastTimer == undefined){
+        document.getElementById('top-screen').innerHTML = `${timer} Seconds`;
+        }else{
+            document.getElementById('top-screen').innerHTML = `Last score ${lastTimer} <br> ${timer}`;
+        }
+        //Not an error to get rid of seconds on the 2nd time
+
     };
 
     let killAllDivs = function() {
@@ -298,7 +299,6 @@ $(document).ready(function() {
         console.log('15')
         console.log(gameBoardIndex)
     };
-
 
     game();
 });

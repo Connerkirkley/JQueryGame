@@ -34,13 +34,12 @@
   transform: scale(2);
   align-self: center;
   color: white;
-  transform: translateY(-180px);
-  font-size: xx-large;
+  transform: translateY(-20px);
+  font-size: x-large;
 }
 
 .grid {
   background-color: #000000;
-  transform: scale(2);
   position: relative; /* Ensure z-index works */
   z-index: 1; /* Set z-index lower than the top-screen */
-}/*# sourceMappingURL=index.css.map */
+} /*# sourceMappingURL=index.css.map */
