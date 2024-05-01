@@ -147,6 +147,11 @@ $(document).ready(function() {
         let gridCol = gameBoard.length;
         let gridRow = gameBoard[1].length;
 
+        if (gridCol <= 40 || gridRow <= 60) {
+            $('.grid').css('transform:', 'scale(1)');
+            console.log('grid is over 40x60');
+        }
+
         $('body').append('<div id="top-screen"></div>')
 
         $('body').append(`<div class="grid" style="display:grid;grid-template-columns:repeat(${gridCol}, 10px);grid-template-rows:repeat(${gridRow}, 10px)"></div>`);
@@ -293,6 +298,7 @@ $(document).ready(function() {
         console.log('15')
         console.log(gameBoardIndex)
     };
+
 
     game();
 });
